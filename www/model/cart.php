@@ -24,10 +24,11 @@ function get_user_carts($db, $user_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = {$user_id}
+      carts.user_id = ?
   ";
+  $params[] = $user_id;
   // クエリ実行結果を返す
-  return fetch_all_query($db, $sql);
+  return fetch_all_query($db, $sql, $params);
 }
 
 // ログインユーザーのカートテーブルに含まれる商品単体情報を取得
