@@ -15,12 +15,14 @@ function get_user($db, $user_id){
     FROM
       users
     WHERE
-      user_id = {$user_id}
+      user_id = ?
     LIMIT 1
   ";
 
+  $params[] = $user_id;
+
   // クエリ実行
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, $params);
 }
 
 // nameからユーザー情報取得
@@ -34,12 +36,14 @@ function get_user_by_name($db, $name){
     FROM
       users
     WHERE
-      name = '{$name}'
+      name = ?
     LIMIT 1
   ";
 
+  $params[] = $name;
+
   // クエリ実行処理
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, $params);
 }
 
 // パスワードを照合して一致していればuser_idをセッションにセットする
@@ -136,10 +140,12 @@ function insert_user($db, $name, $password){
   $sql = "
     INSERT INTO
       users(name, password)
-    VALUES ('{$name}', '{$password}');
+    VALUES (?, ?);
   ";
 
+  $params = [$name, $password];
+
   // クエリの実行
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 

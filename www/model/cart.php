@@ -24,10 +24,13 @@ function get_user_carts($db, $user_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = {$user_id}
+      carts.user_id = ?
   ";
+
+  $params[] = $user_id;
+
   // クエリ実行結果を返す
-  return fetch_all_query($db, $sql);
+  return fetch_all_query($db, $sql, $params);
 }
 
 // ログインユーザーのカートテーブルに含まれる商品単体情報を取得
@@ -51,13 +54,15 @@ function get_user_cart($db, $user_id, $item_id){
     ON
       carts.item_id = items.item_id
     WHERE
-      carts.user_id = {$user_id}
+      carts.user_id = ?
     AND
-      items.item_id = {$item_id}
+      items.item_id = ?
   ";
 
+  $params[] = [$user_id, $item_id];
+
   // クエリ実行結果を返す
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, $params);
 
 }
 
@@ -82,11 +87,13 @@ function insert_cart($db, $item_id, $user_id, $amount = 1){
         user_id,
         amount
       )
-    VALUES({$item_id}, {$user_id}, {$amount})
+    VALUES(?, ?, ?)
   ";
 
+  $params = [$item_id, $user_id, $amount];
+
   // クエリ実行結果を返す
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 // cart_idで指定した商品の個数を変更
@@ -95,13 +102,16 @@ function update_cart_amount($db, $cart_id, $amount){
     UPDATE
       carts
     SET
-      amount = {$amount}
+      amount = ?
     WHERE
-      cart_id = {$cart_id}
+      cart_id = ?
     LIMIT 1
   ";
+
+  $params = [$amount, $cart_id];
+
   // クエリの実行結果を返す
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 // cart_idで指定した商品を削除する
@@ -110,12 +120,14 @@ function delete_cart($db, $cart_id){
     DELETE FROM
       carts
     WHERE
-      cart_id = {$cart_id}
+      cart_id = ?
     LIMIT 1
   ";
 
+  $params[] = $cart_id;
+
   // クエリの実行結果を返す
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 // 商品購入処理(stockの減算とcartsテーブル内商品の削除)
@@ -145,11 +157,13 @@ function delete_user_carts($db, $user_id){
     DELETE FROM
       carts
     WHERE
-      user_id = {$user_id}
+      user_id = ?
   ";
 
+  $params[] = $user_id;
+
   // クエリの実行
-  execute_query($db, $sql);
+  execute_query($db, $sql, $params);
 }
 
 // cart内商品の合計金額算出
