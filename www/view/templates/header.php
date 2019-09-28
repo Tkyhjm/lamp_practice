@@ -1,3 +1,7 @@
+
+<!-- ログイン画面とユーザー登録画面のヘッダー部分の表示 -->
+
+
 <header>
   <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <a class="navbar-brand" href="<?php print(HOME_URL);?>">Market</a>
@@ -7,9 +11,11 @@
     <div class="collapse navbar-collapse" id="headerNav">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
+          <!-- 新規登録リンク -->
           <a class="nav-link" href="<?php print(SIGNUP_URL);?>">サインアップ</a>
         </li>
         <li class="nav-item">
+          <!-- ログインページリンク -->
           <a class="nav-link" href="<?php print(LOGIN_URL);?>">ログイン</a>
         </li>
       </ul>

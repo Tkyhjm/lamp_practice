@@ -1,3 +1,7 @@
+
+<!-- セットしているセッションを配列で格納(ユーザー定義関数)して出力 -->
+
+
 <?php foreach(get_errors() as $error){ ?>
   <p class="alert alert-danger"><span><?php print $error; ?></span></p>
 <?php } ?>

@@ -10,8 +10,10 @@
   <h1>カート</h1>
   <div class="container">
 
+    <!-- セッションにセットされたメッセージとエラーメッセージを出力(無い時は空) -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
+    <!-- ログインユーザーのcatsテーブル内の商品が0でなければ、カート内の商品一覧表示 -->
     <?php if(count($carts) > 0){ ?>
       <table class="table table-bordered">
         <thead class="thead-light">
@@ -31,6 +33,7 @@
             <td><?php print($cart['name']); ?></td>
             <td><?php print(number_format($cart['price'])); ?>円</td>
             <td>
+              <!-- 購入数量変更form -->
               <form method="post" action="cart_change_amount.php">
                 <input type="number" name="amount" value="<?php print($cart['amount']); ?>">
                 個
@@ -38,9 +41,11 @@
                 <input type="hidden" name="cart_id" value="<?php print($cart['cart_id']); ?>">
               </form>
             </td>
+            <!-- 単価×個数の金額算出 -->
             <td><?php print(number_format($cart['price'] * $cart['amount'])); ?>円</td>
             <td>
 
+            <!-- 商品削除form -->
               <form method="post" action="cart_delete_cart.php">
                 <input type="submit" value="削除" class="btn btn-danger delete">
                 <input type="hidden" name="cart_id" value="<?php print($cart['cart_id']); ?>">
@@ -51,15 +56,19 @@
           <?php } ?>
         </tbody>
       </table>
+      <!-- 全商品合計金額算出 -->
       <p class="text-right">合計金額: <?php print number_format($total_price); ?>円</p>
+      <!-- 商品購入処理form -->
       <form method="post" action="finish.php">
         <input class="btn btn-block btn-primary" type="submit" value="購入する">
       </form>
+      <!-- カート内に商品がなければ -->
     <?php } else { ?>
       <p>カートに商品はありません。</p>
     <?php } ?> 
   </div>
   <script>
+    // 削除ボタンをクリックした際のconfirm表示
     $('.delete').on('click', () => confirm('本当に削除しますか？'))
   </script>
 </body>

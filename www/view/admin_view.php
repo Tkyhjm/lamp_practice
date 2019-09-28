@@ -13,8 +13,10 @@
   <div class="container">
     <h1>商品管理</h1>
 
+    <!-- セッションにセットされたメッセージとエラーメッセージを出力(無い時は空) -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
+    <!-- 商品追加form -->
     <form 
       method="post" 
       action="admin_insert_item.php" 
@@ -48,6 +50,7 @@
     </form>
 
 
+    <!-- 商品データが0件でなければ、商品一覧を表示 -->
     <?php if(count($items) > 0){ ?>
       <table class="table table-bordered text-center">
         <thead class="thead-light">
@@ -78,6 +81,7 @@
             </td>
             <td>
 
+            <!-- status情報(非公開or公開)更新form -->
               <form method="post" action="admin_change_status.php" class="operation">
                 <?php if(is_open($item) === true){ ?>
                   <input type="submit" value="公開 → 非公開" class="btn btn-secondary">
@@ -89,6 +93,7 @@
                 <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
               </form>
 
+              <!-- 商品削除form -->
               <form method="post" action="admin_delete_item.php">
                 <input type="submit" value="削除" class="btn btn-danger delete">
                 <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
@@ -99,11 +104,13 @@
           <?php } ?>
         </tbody>
       </table>
+      <!-- 商品データがなければ -->
     <?php } else { ?>
       <p>商品はありません。</p>
     <?php } ?> 
   </div>
   <script>
+    // 削除ボタンをクリックした際のconfirm表示
     $('.delete').on('click', () => confirm('本当に削除しますか？'))
   </script>
 </body>

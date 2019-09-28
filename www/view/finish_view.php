@@ -10,8 +10,10 @@
   <h1>ご購入ありがとうございました！</h1>
 
   <div class="container">
+      <!-- セッションにセットされたメッセージとエラーメッセージを出力(無い時は空) -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
+    <!-- ログインユーザーのcartsテーブルに商品が存在すれば、カート内商品一覧表示 -->
     <?php if(count($carts) > 0){ ?>
       <table class="table table-bordered">
         <thead class="thead-light">
@@ -32,12 +34,15 @@
             <td>
                 <?php print($cart['amount']); ?>個
             </td>
+            <!-- 単価×個数の金額算出 -->
             <td><?php print(number_format($cart['price'] * $cart['amount'])); ?>円</td>
           </tr>
           <?php } ?>
         </tbody>
       </table>
+      <!-- 合計金額 -->
       <p class="text-right">合計金額: <?php print number_format($total_price); ?>円</p>
+    <!-- カート内に商品がなかった場合 -->
     <?php } else { ?>
       <p>カートに商品はありません。</p>
     <?php } ?> 

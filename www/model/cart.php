@@ -120,7 +120,7 @@ function delete_cart($db, $cart_id){
 
 // 商品購入処理(stockの減算とcartsテーブル内商品の削除)
 function purchase_carts($db, $carts){
-  // カートない商品のエラーチェック(エラーがあればfalseが返ってくる)
+  // カート内商品のエラーチェック(エラーがあればfalseが返ってくる)
   if(validate_cart_purchase($carts) === false){
     return false;
   }
