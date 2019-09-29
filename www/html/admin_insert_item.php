@@ -18,6 +18,8 @@ if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
 }
 
+$token = get_post('token');
+
 $name = get_post('name');
 $price = get_post('price');
 $status = get_post('status');
