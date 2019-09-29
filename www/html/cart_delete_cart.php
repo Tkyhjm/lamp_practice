@@ -26,7 +26,14 @@ $user = get_login_user($db);
 // ポストでcart_idが送られてきたことを確認して、変数に代入
 $cart_id = get_post('cart_id');
 
-// 指定した商品の削除
+$token = get_post('token');
+
+if (is_valid_csrf_token($token) === false) {
+  set_error('不正なリクエストです。');
+  redirect_to(CART_URL);
+}
+
+  // 指定した商品の削除
 if(delete_cart($db, $cart_id)){
   set_message('カートを削除しました。');
 } else {

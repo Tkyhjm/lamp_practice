@@ -31,6 +31,14 @@ if(is_admin($user) === false){
 $item_id = get_post('item_id');
 $changes_to = get_post('changes_to');
 
+$token = get_post('token');
+
+// トークンのチェック
+if (is_valid_csrf_token($token) === false) {
+  set_error('不正なリクエストです。');
+  redirect_to(ADMIN_URL);
+}
+
 // statusの更新処理
 if($changes_to === 'open'){
   // statusを１に更新

@@ -18,6 +18,9 @@ if(is_admin($user) === false){
   redirect_to(LOGIN_URL);
 }
 
+// トークンの生成
+$token = get_csrf_token();
+
 $items = get_all_items($db);
 
 include_once '../view/admin_view.php';

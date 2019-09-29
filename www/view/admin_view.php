@@ -20,6 +20,7 @@
       action="admin_insert_item.php" 
       enctype="multipart/form-data"
       class="add_item_form col-md-6">
+      <input type="hidden" name="token" value="<?php print $token; ?>">
       <div class="form-group">
         <label for="name">名前: </label>
         <input class="form-control" type="text" name="name" id="name">
@@ -43,7 +44,6 @@
           <option value="close">非公開</option>
         </select>
       </div>
-      
       <input type="submit" value="商品追加" class="btn btn-primary">
     </form>
 
@@ -67,6 +67,7 @@
             <td><?php print(number_format($item['price'])); ?>円</td>
             <td>
               <form method="post" action="admin_change_stock.php">
+              <input type="hidden" name="token" value="<?php print $token; ?>">
                 <div class="form-group">
                   <!-- sqlインジェクション確認のためあえてtext -->
                   <input  type="text" name="stock" value="<?php print($item['stock']); ?>">
@@ -79,6 +80,7 @@
             <td>
 
               <form method="post" action="admin_change_status.php" class="operation">
+                <input type="hidden" name="token" value="<?php print $token; ?>">
                 <?php if(is_open($item) === true){ ?>
                   <input type="submit" value="公開 → 非公開" class="btn btn-secondary">
                   <input type="hidden" name="changes_to" value="close">
@@ -90,6 +92,7 @@
               </form>
 
               <form method="post" action="admin_delete_item.php">
+                <input type="hidden" name="token" value="<?php print $token; ?>">
                 <input type="submit" value="削除" class="btn btn-danger delete">
                 <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
               </form>

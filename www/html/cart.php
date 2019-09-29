@@ -24,6 +24,9 @@ $db = get_db_connect();
 // user_idがセッションにセットされていれば、ユーザー情報を取得して変数に代入
 $user = get_login_user($db);
 
+// トークンの生成
+$token = get_csrf_token();
+
 // ログインユーザーのカートに入っている商品情報を取得(select)
 $carts = get_user_carts($db, $user['user_id']);
 
