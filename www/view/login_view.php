@@ -9,7 +9,7 @@
   <?php include VIEW_PATH . 'templates/header.php'; ?>
   <div class="container">
     <h1>ログイン</h1>
-
+    <!-- セッションにセットされたメッセージとエラーメッセージを出力(無い時は空) -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
     <form method="post" action="login_process.php" class="login_form mx-auto">

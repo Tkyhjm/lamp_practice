@@ -12,10 +12,12 @@
 
   <div class="container">
     <h1>商品一覧</h1>
+    <!-- セッションにセットされたメッセージとエラーメッセージを出力(無い時は空) -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
     <div class="card-deck">
       <div class="row">
+        <!-- 商品一覧表示 -->
       <?php foreach($items as $item){ ?>
         <div class="col-6 item">
           <div class="card h-100 text-center">
@@ -27,10 +29,12 @@
               <figcaption>
                 <?php print(number_format($item['price'])); ?>円
                 <?php if($item['stock'] > 0){ ?>
+                  <!-- 商品をカートに入れるform -->
                   <form action="index_add_cart.php" method="post">
                     <input type="submit" value="カートに追加" class="btn btn-primary btn-block">
                     <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
                   </form>
+                  <!-- 在庫数が0の場合 -->
                 <?php } else { ?>
                   <p class="text-danger">現在売り切れです。</p>
                 <?php } ?>
