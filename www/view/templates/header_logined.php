@@ -14,7 +14,9 @@
           <a class="nav-link" href="<?php print(CART_URL);?>">カート</a>
         </li>
         <li class="nav-item">
-          <!-- ログアウト処理 -->
+          <a class="nav-link" href="<?php print(ORDER_URL);?>">注文履歴</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="<?php print(LOGOUT_URL);?>">ログアウト</a>
         </li>
         <!-- 管理ユーザーであれば、管理ページへのリンク -->
