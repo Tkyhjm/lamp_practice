@@ -125,18 +125,47 @@ function purchase_carts($db, $carts){
     return false;
   }
 
-  foreach($carts as $cart){
-    // 商品の在庫数減算処理
-    if(update_item_stock(
-        $db, 
-        $cart['item_id'], 
-        $cart['stock'] - $cart['amount']
-      ) === false){
-      set_error($cart['name'] . 'の購入に失敗しました。');
+  
+  try {
+    $db->beginTransaction();
+
+    foreach($carts as $cart){
+      // 商品の在庫数減算処理
+      if(update_item_stock(
+          $db, 
+          $cart['item_id'], 
+          $cart['stock'] - $cart['amount']
+        ) === false){
+        set_error($cart['name'] . 'の購入に失敗しました。');
+      }
     }
+  
+    // カート内商品の合計金額
+    $total_price = sum_carts($carts);
+    // 注文履歴追加
+    insert_order($db, $carts[0]['user_id'], $total_price);
+    // ordersテーブルのオートインクリメントが拾える
+    $order_id = $db->lastInsertId('order_id');
+  
+    foreach($carts as $cart){
+      // 購入明細履歴追加
+      insert_order_details(
+        $db, 
+        $cart['price'], 
+        $cart['amount'], 
+        $cart['item_id'], 
+        $order_id);
+    }
+  
+    // ログインユーザーのcartsテーブル内の商品を全て削除
+    delete_user_carts($db, $carts[0]['user_id']);
+
+    $db->commit();
+    return true;
+  } catch (PDOException $e) {
+    $db->rollback();
+    return false;
   }
-  // ログインユーザーのcartsテーブル内の商品を全て削除
-  delete_user_carts($db, $carts[0]['user_id']);
 }
 
 // ログインユーザーのcartsテーブル内の商品を全て削除

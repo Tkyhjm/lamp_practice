@@ -15,13 +15,13 @@ if(is_logined() === false){
 $db = get_db_connect();
 $user = get_login_user($db);
 
-$carts = get_user_carts($db, $user['user_id']);
+// 管理ユーザーであれば、全件履歴表示
+if(is_admin($user)){
+  $orders = get_orders($db);
+} else {
+  // 管理ユーザーでなければ、ログインユーザーの履歴のみ表示
+  $orders = get_user_orders($db, $user['user_id']);
+}
 
-if(purchase_carts($db, $carts) === false){
-  set_error('商品が購入できませんでした。');
-  redirect_to(CART_URL);
-} 
 
-$total_price = sum_carts($carts);
-
-include_once '../view/finish_view.php';
+include_once '../view/order_view.php';
