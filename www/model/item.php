@@ -19,11 +19,13 @@ function get_item($db, $item_id){
     FROM
       items
     WHERE
-      item_id = {$item_id}
+      item_id = ?
   ";
 
+  $params[] = $item_id;
+
   // クエリを実行
-  return fetch_query($db, $sql);
+  return fetch_query($db, $sql, $params);
 }
 
 // 商品一覧を表示
@@ -99,11 +101,13 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
         image,
         status
       )
-    VALUES('{$name}', {$price}, {$stock}, '{$filename}', {$status_value});
+    VALUES(?, ?, ?, ?, ?);
   ";
 
+  $params = [$name, $price, $stock, $filename, $status_value];
+
   // クエリ実行
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 // 公開or非公開を更新(0or1)
@@ -112,14 +116,16 @@ function update_item_status($db, $item_id, $status){
     UPDATE
       items
     SET
-      status = {$status}
+      status = ?
     WHERE
-      item_id = {$item_id}
+      item_id = ?
     LIMIT 1
   ";
   
+  $params = [$status, $item_id];
+
   // クエリ実行
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 // 在庫数の更新
@@ -128,14 +134,16 @@ function update_item_stock($db, $item_id, $stock){
     UPDATE
       items
     SET
-      stock = {$stock}
+      stock = ?
     WHERE
-      item_id = {$item_id}
+      item_id = ?
     LIMIT 1
   ";
+
+  $params = [$stock, $item_id];
   
   // クエリ実行
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 // 商品削除処理
@@ -164,12 +172,14 @@ function delete_item($db, $item_id){
     DELETE FROM
       items
     WHERE
-      item_id = {$item_id}
+      item_id = ?
     LIMIT 1
   ";
   
+  $params[] = $item_id;
+
   // クエリ実行
-  return execute_query($db, $sql);
+  return execute_query($db, $sql, $params);
 }
 
 
