@@ -8,10 +8,19 @@
 </head>
 <body>
   <?php include VIEW_PATH . 'templates/header_logined.php'; ?>
-  
 
   <div class="container">
-    <h1>商品一覧</h1>
+  <div class="float-right">
+      <form method="get" action="index.php">
+        <select name="sort">
+          <option value="created" selected>新着順</option>
+          <option value="price">価格の安い順</option>
+          <option value="price">価格の高い順</option>
+        </select>
+        <input type="submit" value="並べ替え">
+      </form>
+    </div>
+    <h1 class="title">商品一覧</h1>
     <!-- セッションにセットされたメッセージとエラーメッセージを出力(無い時は空) -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 

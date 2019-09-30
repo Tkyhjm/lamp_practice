@@ -256,3 +256,28 @@ function is_valid_item_status($status){
   }
   return $is_valid;
 }
+
+// 商品一覧を表示
+function get_get_items($db, $sort){
+  $sql = '
+    SELECT
+      item_id, 
+      name,
+      stock,
+      price,
+      image,
+      status
+    FROM
+      items
+    WHERE
+      status = 1
+    ORDER BY
+      ? DESC
+
+  ';
+
+  $params[] = $sort;
+
+  // クエリ実行
+  return fetch_all_query($db, $sql, $params);
+}
