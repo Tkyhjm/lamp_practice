@@ -12,11 +12,9 @@
 
     <!-- セッションにセットされたメッセージとエラーメッセージを出力(無い時は空) -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
-
-    <!-- ログインユーザーのcatsテーブル内の商品が0でなければ、カート内の商品一覧表示 -->
     <?php if(count($carts) > 0){ ?>
       <table class="table table-bordered">
-        <thead class="thead-light">
+        <thead classs="thead-light">
           <tr>
             <th>商品画像</th>
             <th>商品名</th>
