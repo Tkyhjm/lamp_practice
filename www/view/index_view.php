@@ -13,9 +13,9 @@
   <div class="float-right">
       <form method="get" action="index.php">
         <select name="sort">
-          <option value="created" selected>新着順</option>
-          <option value="price">価格の安い順</option>
-          <option value="price">価格の高い順</option>
+          <option value="created" <?php if ($sort === 'created') {print 'selected';} ?>>新着順</option>
+          <option value="low_price" <?php if ($sort === 'low_price') {print 'selected';} ?>>価格の安い順</option>
+          <option value="high_price" <?php if ($sort === 'high_price') {print 'selected';} ?>>価格の高い順</option>
         </select>
         <input type="submit" value="並べ替え">
       </form>
@@ -34,7 +34,7 @@
               <?php print($item['name']); ?>
             </div>
             <figure class="card-body">
-              <img class="card-img" src="<?php print(IMAGE_PATH . $item['image']); ?>">
+              <img class="card-img item-image" src="<?php print(IMAGE_PATH . $item['image']); ?>">
               <figcaption>
                 <?php print(number_format($item['price'])); ?>円
                 <?php if($item['stock'] > 0){ ?>

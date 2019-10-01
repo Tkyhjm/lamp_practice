@@ -259,7 +259,23 @@ function is_valid_item_status($status){
 
 // 商品一覧を表示
 function get_get_items($db, $sort){
-  $sql = '
+  $field = '';
+  $order_by = '';
+  switch($sort) {
+    case'created':
+    $field = 'created';
+    $order_by = 'DESC';
+    break;
+    case'low_price':
+    $field = 'price';
+    $order_by = 'ASC';
+    break;
+    case'high_price':
+    $field = 'price';
+    $order_by = 'DESC';
+  }
+
+  $sql = "
     SELECT
       item_id, 
       name,
@@ -272,12 +288,8 @@ function get_get_items($db, $sort){
     WHERE
       status = 1
     ORDER BY
-      ? DESC
-
-  ';
-
-  $params[] = $sort;
+      {$field} {$order_by}";
 
   // クエリ実行
-  return fetch_all_query($db, $sql, $params);
+  return fetch_all_query($db, $sql);
 }
