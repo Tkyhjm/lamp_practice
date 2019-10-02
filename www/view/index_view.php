@@ -11,7 +11,7 @@
   
 
   <div class="container">
-    <h1>商品一覧</h1>
+    <h1>あ商品一覧</h1>
     <!-- セッションにセットされたメッセージとエラーメッセージを出力(無い時は空) -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
