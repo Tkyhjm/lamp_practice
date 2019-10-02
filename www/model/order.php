@@ -17,7 +17,10 @@ function insert_order($db, $user_id, $total_price){
     $params = [$user_id, $total_price];
   
     // クエリ実行結果を返す
-    return execute_query($db, $sql, $params);
+    $ret = execute_query($db, $sql, $params);
+    if ($ret === false) {
+      throw new PDOException(); 
+    }
 }
 
 // order_detailsテーブルに購入明細履歴を追加する
@@ -36,7 +39,11 @@ function insert_order_details($db, $price, $amount, $item_id, $order_id){
     $params = [$price, $amount, $item_id, $order_id];
   
     // クエリ実行結果を返す
-    return execute_query($db, $sql, $params);
+    $ret = execute_query($db, $sql, $params);
+    if ($ret === false) {
+      throw new PDOException(); 
+    }
+
 }
 
 // ログインユーザーorderテーブル一覧表示

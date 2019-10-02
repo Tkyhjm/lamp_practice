@@ -149,6 +149,7 @@ function purchase_carts($db, $carts){
           $cart['stock'] - $cart['amount']
         ) === false){
         set_error($cart['name'] . 'の購入に失敗しました。');
+        throw new PDOException();
       }
     }
   
@@ -176,7 +177,7 @@ function purchase_carts($db, $carts){
     return true;
   } catch (PDOException $e) {
     $db->rollback();
-    throw new PDOException();
+    return false;
   }
 }
 
@@ -192,7 +193,10 @@ function delete_user_carts($db, $user_id){
   $params[] = $user_id;
 
   // クエリの実行
-  execute_query($db, $sql, $params);
+  $ret = execute_query($db, $sql, $params);
+    if ($ret === false) {
+      throw new PDOException(); 
+    }
 }
 
 // cart内商品の合計金額算出
