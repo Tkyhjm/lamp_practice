@@ -59,7 +59,7 @@ function get_user_cart($db, $user_id, $item_id){
       items.item_id = ?
   ";
 
-  $params[] = [$user_id, $item_id];
+  $params = [$user_id, $item_id];
 
   // クエリ実行結果を返す
   return fetch_query($db, $sql, $params);
