@@ -176,7 +176,7 @@ function purchase_carts($db, $carts){
     return true;
   } catch (PDOException $e) {
     $db->rollback();
-    return false;
+    throw new PDOException();
   }
 }
 
