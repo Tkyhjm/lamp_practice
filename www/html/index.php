@@ -22,8 +22,13 @@ $db = get_db_connect();
 // ユーザー情報を変数に代入
 $user = get_login_user($db);
 
-// 公開されている商品の一覧を、配列変数に代入
-$items = get_open_items($db);
+// // 並び変え機能
+if (get_get('sort') === '') {
+  $sort = 'created';
+} else {
+  $sort = get_get('sort');
+}
+  $items = get_get_items($db, $sort);
 
 // viewファイルの読み込み
 include_once '../view/index_view.php';
