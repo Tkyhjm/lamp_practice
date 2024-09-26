@@ -25,6 +25,8 @@ define('HOME_URL', '/index.php');
 define('CART_URL', '/cart.php');
 define('FINISH_URL', '/finish.php');
 define('ADMIN_URL', '/admin.php');
+define('ORDER_URL', '/order.php');
+define('ORDER_DETAIL_URL', '/order_detail.php');
 
 // 正規表現
 
